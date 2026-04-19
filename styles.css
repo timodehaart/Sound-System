@@ -1,0 +1,220 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ─── Background ─── */
+.bg {
+  position: fixed;
+  inset: 0;
+  background-image: url('img/backgroundImage.png');
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+
+.bg-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 10, 20, 0.32);
+  backdrop-filter: blur(1px);
+  z-index: 1;
+}
+
+/* ─── Scene ─── */
+.scene {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 120px;
+}
+
+/* ─── Title ─── */
+.title {
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 3rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  margin-bottom: 3rem;
+  text-align: center;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.4);
+}
+
+/* ─── Card ─── */
+.card {
+  width: 100%;
+  background: rgba(18, 26, 42, 0.68);
+  backdrop-filter: blur(22px) saturate(1.3);
+  -webkit-backdrop-filter: blur(22px) saturate(1.3);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 18px;
+  padding: 1.4rem 1.6rem 1.4rem;
+  box-shadow:
+    0 12px 48px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+/* ─── Channel grid ─── */
+.channels {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 14px;
+}
+
+/* ─── Single channel ─── */
+.channel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+  padding: 1rem 0 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: background 0.3s, border-color 0.3s;
+}
+
+.channel.active {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* ─── Icon ─── */
+.ch-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.45);
+  transition: color 0.3s;
+}
+
+.ch-icon svg {
+  width: 32px;
+  height: 32px;
+  stroke: currentColor;
+  stroke-width: 1.4;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.channel.active .ch-icon {
+  color: rgba(255, 255, 255, 0.90);
+}
+
+/* ─── Label ─── */
+.ch-label {
+  font-size: 0.82rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.60);
+  letter-spacing: 0.03em;
+  transition: color 0.3s;
+}
+
+.channel.active .ch-label {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* ─── Vertical slider ─── */
+.slider-track {
+  position: relative;
+  height: 220px;
+  width: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.track-bg {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45);
+  border-radius: 4px;
+}
+
+.track-fill {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  width: 5px;
+  background: rgba(185, 195, 210, 0.80);
+  border-radius: 4px;
+  pointer-events: none;
+  transition: background 0.25s;
+}
+
+.channel.active .track-fill {
+  background: rgba(215, 222, 235, 0.97);
+}
+
+.ch-range {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: ns-resize;
+  writing-mode: vertical-lr;
+  direction: rtl;
+  z-index: 2;
+}
+
+.thumb {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 22px;
+  height: 22px;
+  background: rgb(220, 225, 235);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.15);
+  transition: background 0.25s;
+}
+
+.channel.active .thumb {
+  background: #fff;
+  box-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.5),
+    0 0 0 2px rgba(255, 255, 255, 0.25);
+}
+
+/* ─── Volume readout ─── */
+.ch-val {
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.28);
+  letter-spacing: 0.04em;
+  transition: color 0.25s;
+  margin-top: 10px;
+}
+
+.channel.active .ch-val {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 900px) {
+  .scene { padding: 0 40px; }
+  .channels { grid-template-columns: repeat(4, 1fr); }
+  .slider-track { height: 160px; }
+}
